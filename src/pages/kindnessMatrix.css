@@ -30,46 +30,74 @@
   --km-shadow-tiny: 0 3px 10px rgba(45, 42, 38, 0.08);
 
   font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background-color: #EAF2FF;
+  background-color: #FFFFFF;
   background-image:
-    radial-gradient(ellipse 900px 640px at 50% 34%, #B8D4FF 0%, rgba(184, 212, 255, 0) 68%);
+    radial-gradient(ellipse farthest-side at 50% 50%, #B8D4FF 0%, rgba(255, 255, 255, 0) 90%);
   color: var(--km-text);
   height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  --km-sidebar-w: 64px;
+}
+.km-page-sidebar-open {
+  --km-sidebar-w: 220px;
 }
 
 .km-footer-fixed {
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: var(--km-sidebar-w);
   right: 0;
   display: flex;
   justify-content: center;
   padding: 10px;
   background: #fff;
-  border-top: 1px solid rgba(45, 42, 38, 0.08);
   z-index: 5;
+  transition: left 0.25s ease;
 }
 
 .km-home-header-bar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: var(--km-sidebar-w);
   right: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 4px 22px;
   background: #fff;
   z-index: 20;
+  transition: left 0.25s ease;
+}
+
+.km-hamburger-btn {
+  width: 38px; height: 38px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--km-text);
+  transition: background 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+.km-hamburger-btn:hover { background: #B8D4FF; }
+.km-hamburger-btn svg { width: 20px; height: 20px; }
+
+.km-logo-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
 }
 
 .km-logo-img {
-  height: 48px;
+  height: 100px;
   width: auto;
   display: block;
+  margin-bottom: 10px;
   user-select: none;
 }
 
@@ -82,6 +110,8 @@
   justify-content: center;
   padding: 76px 16px 110px;
   overflow-y: auto;
+  margin-left: var(--km-sidebar-w);
+  transition: margin-left 0.25s ease;
 }
 
 .km-logo {
@@ -107,21 +137,12 @@
   padding: 0 8px;
 }
 
-.km-steps {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  max-width: 584px;
-  margin-bottom: 22px;
-}
 .km-step-card {
-  flex: 1;
-  min-width: 0;
   background: var(--km-card-bg);
   border-radius: 14px;
   border-top: 3px solid var(--step-color);
-  box-shadow: var(--km-shadow-tiny);
-  padding: 14px 10px 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  padding: 10px;
   text-align: center;
 }
 .km-step-num {
@@ -133,9 +154,60 @@
   font-weight: 800; font-size: 12px;
   margin: 0 auto 6px;
 }
-.km-step-icon { font-size: 16px; line-height: 1; margin-bottom: 6px; }
 .km-step-title { font-weight: 800; font-size: 13px; color: var(--km-text); margin-bottom: 4px; }
 .km-step-text { font-size: 11px; font-weight: 600; color: var(--km-text-secondary); line-height: 1.4; }
+
+/* ---------- Sidebar ---------- */
+.km-sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 64px;
+  background: #fff;
+  box-shadow: var(--km-shadow-tiny);
+  transition: width 0.25s ease, padding 0.25s ease, box-shadow 0.25s ease;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 18px 10px;
+}
+.km-sidebar-open {
+  width: 220px;
+  max-width: 82vw;
+  box-shadow: var(--km-shadow-soft);
+  padding: 18px 16px 24px;
+}
+.km-sidebar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.km-sidebar-collapsed .km-sidebar-top { justify-content: center; }
+.km-sidebar-welcome { font-weight: 800; font-size: 16px; white-space: nowrap; }
+.km-sidebar-collapse-btn {
+  width: 32px; height: 32px;
+  border: none;
+  background: var(--km-card-bg);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--km-text-secondary);
+  transition: background 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+.km-sidebar-collapse-btn:hover { background: #B8D4FF; color: var(--km-text); }
+.km-sidebar-collapse-btn svg { width: 17px; height: 17px; }
+.km-sidebar-collapse-btn .km-sidebar-ai-icon { font-size: 16px; line-height: 1; }
+.km-sidebar-collapse-btn .km-sidebar-arrow-icon { display: none; align-items: center; justify-content: center; }
+.km-sidebar-collapse-btn:hover .km-sidebar-ai-icon { display: none; }
+.km-sidebar-collapse-btn:hover .km-sidebar-arrow-icon { display: flex; }
+.km-sidebar-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 
 .km-bar-wrap {
   width: 100%;
@@ -284,7 +356,11 @@
 }
 
 /* ---------- Chat ---------- */
-.km-chat { display: flex; flex: 1; flex-direction: column; overflow: hidden; }
+.km-chat {
+  display: flex; flex: 1; flex-direction: column; overflow: hidden;
+  margin-left: var(--km-sidebar-w);
+  transition: margin-left 0.25s ease;
+}
 
 .km-chat-header {
   display: flex; align-items: center;
@@ -351,15 +427,35 @@
   font-size: 15px; flex-shrink: 0; margin-top: 2px;
   box-shadow: var(--km-shadow-tiny);
 }
+.km-bubble-bot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 89%;
+}
 .km-bubble-bot {
   background: var(--km-card-bg);
   box-shadow: var(--km-shadow-tiny);
   padding: 16px 18px;
   border-radius: 10px;
-  max-width: 89%; font-size: 15px;
+  width: 100%; font-size: 15px;
   line-height: 1.6; word-break: break-word;
   white-space: pre-wrap;
 }
+
+.km-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 15px;
+  border: none; border-radius: 999px;
+  background: var(--km-card-bg);
+  color: var(--km-text-secondary);
+  font-family: inherit; font-size: 12px; font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--km-shadow-tiny);
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.km-back-btn:hover { background: #B8D4FF; color: var(--km-text); transform: translateY(-1px); }
 .km-chat-text-p { margin: 0 0 10px; }
 .km-chat-text-p:last-child { margin-bottom: 0; }
 .km-chat-list {
@@ -551,9 +647,10 @@ ol.km-chat-list { list-style: decimal; }
 }
 
 .km-chat-bottom {
-  position: fixed; bottom: 0; left: 0; right: 0;
+  position: fixed; bottom: 0; left: var(--km-sidebar-w); right: 0;
   display: flex; flex-direction: column;
   z-index: 5;
+  transition: left 0.25s ease;
 }
 .km-bottom-bar {
   background: transparent;
@@ -565,7 +662,6 @@ ol.km-chat-list { list-style: decimal; }
 
 .km-chat-footer-bar {
   background: #fff;
-  border-top: 1px solid rgba(45, 42, 38, 0.06);
   padding: 8px 16px 14px;
   display: flex; justify-content: center;
 }

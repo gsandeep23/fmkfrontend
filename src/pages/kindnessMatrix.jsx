@@ -5,6 +5,7 @@ import {
 } from '../services/endpoints';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
+import Sidebar from '../components/Sidebar.jsx';
 import './kindnessMatrix.css';
 
 function fileToB64(file) {
@@ -374,7 +375,7 @@ function IdeaRow({ idea, idx = 0, showToast }) {
   );
 }
 
-function MessageRow({ msg, showToast, onSpeak }) {
+function MessageRow({ msg, showToast, onSpeak, onGoHome, showBack }) {
   const [speaking, setSpeaking] = useState(false);
 
   if (msg.role === 'user') {
@@ -403,23 +404,28 @@ function MessageRow({ msg, showToast, onSpeak }) {
   return (
     <div className="km-msg-row km-msg-row-bot">
       <div className="km-bot-avatar">✨</div>
-      <div className="km-bubble-bot">
-        {msg.kind === 'ideas' ? (
-          <>
-            <div className="km-obj-label">Kindness ideas — {msg.objName}</div>
-            {msg.ideas.map((idea, idx) => (
-              <IdeaRow key={idx} idea={idea} idx={idx} showToast={showToast} />
-            ))}
-          </>
-        ) : (
-          <>
-            {renderChatText(msg.text)}
-            <div className="km-bubble-toolbar">
-              <button className="km-speak-btn" title="Speak" disabled={speaking} onClick={handleSpeak}>
-                <SpeakerIcon />
-              </button>
-            </div>
-          </>
+      <div className="km-bubble-bot-wrap">
+        <div className="km-bubble-bot">
+          {msg.kind === 'ideas' ? (
+            <>
+              <div className="km-obj-label">Kindness ideas</div>
+              {msg.ideas.map((idea, idx) => (
+                <IdeaRow key={idx} idea={idea} idx={idx} showToast={showToast} />
+              ))}
+            </>
+          ) : (
+            <>
+              {renderChatText(msg.text)}
+              <div className="km-bubble-toolbar">
+                <button className="km-speak-btn" title="Speak" disabled={speaking} onClick={handleSpeak}>
+                  <SpeakerIcon />
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+        {showBack && (
+          <button className="km-back-btn" onClick={onGoHome}>← Back to Home</button>
         )}
       </div>
     </div>
@@ -428,6 +434,7 @@ function MessageRow({ msg, showToast, onSpeak }) {
 
 export default function KindnessMatrix() {
   const [view, setView] = useState('home');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [pendingImg, setPendingImg] = useState(null);
   const [typing, setTyping] = useState(false);
@@ -470,6 +477,19 @@ export default function KindnessMatrix() {
     audioCtxRef.current?.close().catch(() => {});
   }, []);
 
+  useEffect(() => {
+    window.history.replaceState({ view: 'home' }, '');
+    function handlePopState(e) {
+      if (e.state?.view === 'chat') {
+        setView('chat');
+      } else {
+        goHome(true);
+      }
+    }
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   function showToast(msg, ms = 3200) {
     setToastMsg(msg);
     setToastVisible(true);
@@ -485,7 +505,7 @@ export default function KindnessMatrix() {
     }
   }
 
-  function goHome() {
+  function goHome(fromPopState) {
     setView('home');
     setMessages([]);
     setPendingImg(null);
@@ -494,6 +514,7 @@ export default function KindnessMatrix() {
     chatHistoryRef.current = [];
     setHomeInput('');
     setChatInput('');
+    if (!fromPopState) window.history.pushState({ view: 'home' }, '');
   }
 
   function clearPending() { setPendingImg(null); }
@@ -505,7 +526,10 @@ export default function KindnessMatrix() {
   async function send(rawText, imgB64, imgDataUrl) {
     const text = (rawText || '').trim();
     if (!text && !imgB64) return;
-    if (view !== 'chat') setView('chat');
+    if (view !== 'chat') {
+      setView('chat');
+      window.history.pushState({ view: 'chat' }, '');
+    }
 
     const userMsgId = genId();
     setMessages((prev) => [...prev, { id: userMsgId, role: 'user', text, imgDataUrl: imgDataUrl || null, blurred: false }]);
@@ -598,7 +622,10 @@ export default function KindnessMatrix() {
     const file = e.target.files[0];
     if (!file) return;
     const { b64, dataUrl } = await fileToB64(file);
-    if (view !== 'chat') setView('chat');
+    if (view !== 'chat') {
+      setView('chat');
+      window.history.pushState({ view: 'chat' }, '');
+    }
     setPendingImg({ b64, dataUrl });
     e.target.value = '';
     chatInputElRef.current?.focus();
@@ -633,7 +660,10 @@ export default function KindnessMatrix() {
     const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
     const b64 = dataUrl.split(',')[1];
     closeCamera();
-    if (view !== 'chat') setView('chat');
+    if (view !== 'chat') {
+      setView('chat');
+      window.history.pushState({ view: 'chat' }, '');
+    }
     setPendingImg({ b64, dataUrl });
     chatInputElRef.current?.focus();
   }
@@ -692,7 +722,10 @@ export default function KindnessMatrix() {
             const res = await postTranscribe(audioB64);
             setTyping(false);
             if (res.transcript) {
-              if (view !== 'chat') setView('chat');
+              if (view !== 'chat') {
+                setView('chat');
+                window.history.pushState({ view: 'chat' }, '');
+              }
               const pending = pendingImgRef.current;
               await send(res.transcript, pending?.b64, pending?.dataUrl);
             } else {
@@ -714,7 +747,9 @@ export default function KindnessMatrix() {
   }
 
   return (
-    <div className="km-page">
+    <div className={`km-page ${sidebarOpen ? 'km-page-sidebar-open' : ''}`}>
+      <Sidebar open={sidebarOpen} onToggle={() => setSidebarOpen((o) => !o)} />
+
       {cameraOpen && (
         <div className="km-cam-modal">
           <button className="km-cam-close" onClick={closeCamera}>×</button>
@@ -733,24 +768,6 @@ export default function KindnessMatrix() {
             epidemic by turning everyday objects into sparks for human connection.
 
           </p>
-
-          <div className="km-steps">
-            <div className="km-step-card" style={{ '--step-color': 'var(--km-orange)' }}>
-              <div className="km-step-num">1</div>
-              <div className="km-step-title">📷 Scan</div>
-              <div className="km-step-text">Point your camera and take a photo of an everyday object—like a coffee mug, a stack of books, or even a random sandal!</div>
-            </div>
-            <div className="km-step-card" style={{ '--step-color': 'var(--km-purple)' }}>
-              <div className="km-step-num">2</div>
-              <div className="km-step-title">✨ Discover</div>
-              <div className="km-step-text">The app will say "Kindness Starts Here," and our digital guide, Professor Juju, will give you fun, totally unique kindness ideas based on your photo.</div>
-            </div>
-            <div className="km-step-card" style={{ '--step-color': 'var(--km-teal)' }}>
-              <div className="km-step-num">3</div>
-              <div className="km-step-title">🤝 Connect</div>
-              <div className="km-step-text">Pick your favorite idea, put your phone away, and bring that small act of kindness to life in your community.</div>
-            </div>
-          </div>
 
           <div className="km-bar-wrap">
             <input className="km-bar" type="text" placeholder="Ask anything or describe an object..."
@@ -774,7 +791,7 @@ export default function KindnessMatrix() {
 
           <div className="km-home-buttons">
             <button className="km-google-btn" onClick={handleKindnessSearch}><SearchIcon /> Kindness Search</button>
-            <button className="km-google-btn km-google-btn-primary" onClick={handleFeelingKindness}><HeartIcon /> I'm Feeling Kind</button>
+            <button className="km-google-btn km-google-btn-primary" onClick={handleFeelingKindness}><HeartIcon /> Kindness Sparks</button>
           </div>
         </div>
       )}
@@ -790,9 +807,13 @@ export default function KindnessMatrix() {
           <Header variant="chat" onLogoClick={goHome} />
 
           <div className="km-messages" ref={messagesRef}>
-            {messages.map((msg) => (
-              <MessageRow key={msg.id} msg={msg} showToast={showToast} onSpeak={handleSpeak} />
-            ))}
+            {(() => {
+              const lastBotMsgId = [...messages].reverse().find((m) => m.role === 'bot')?.id;
+              return messages.map((msg) => (
+                <MessageRow key={msg.id} msg={msg} showToast={showToast} onSpeak={handleSpeak}
+                  onGoHome={goHome} showBack={msg.id === lastBotMsgId} />
+              ));
+            })()}
             {typing && (
               <div className="km-msg-row km-msg-row-bot">
                 <div className="km-typing-row"><span></span><span></span><span></span></div>
