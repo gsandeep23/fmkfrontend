@@ -1,0 +1,297 @@
+.sp-page,
+.sp-page *,
+.sp-page *::before,
+.sp-page *::after {
+  box-sizing: border-box;
+}
+
+/* :where() carries zero specificity so this reset never outranks a shared
+   component's own margin/padding rules (e.g. Header/Footer from kindnessMatrix.css),
+   regardless of which stylesheet happens to load second. */
+:where(.sp-page, .sp-page *, .sp-page *::before, .sp-page *::after) {
+  margin: 0;
+  padding: 0;
+}
+
+.sp-page {
+  /* Same palette as the Kindness Matrix app, kept in sync intentionally. */
+  --km-bg: #FFFBF5;
+  --km-card-bg: #FFFFFF;
+  --km-text: #2D2A26;
+  --km-text-secondary: #8A8078;
+  --km-text-placeholder: #B8AFA6;
+  --km-border: #F3E4D2;
+
+  --km-coral: #FF6B6B;
+  --km-coral-dark: #F4511E;
+  --km-orange: #FFA94D;
+  --km-yellow: #FFD43B;
+  --km-teal: #20C997;
+  --km-blue: #4DABF7;
+  --km-purple: #9775FA;
+  --km-pink: #F783AC;
+
+  --km-shadow-soft: 0 10px 26px rgba(255, 107, 107, 0.14);
+  --km-shadow-tiny: 0 3px 10px rgba(45, 42, 38, 0.08);
+
+  /* These pages render no sidebar, so the shared header's sidebar-offset var must resolve to 0. */
+  --km-sidebar-w: 0px;
+
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--km-bg);
+  color: var(--km-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  /* Clears the fixed .km-home-header-bar rendered by the shared Header component. */
+  padding-top: 60px;
+}
+
+.sp-page.sp-page-cool {
+  background: #EEF4FF;
+}
+.sp-page-cool .sp-card-icon { background: #EEF4FF; }
+
+.sp-page.sp-page-mint {
+  background: #EAFBF5;
+}
+.sp-page-mint .sp-card-icon { background: #EAFBF5; }
+
+:where(.sp-page a) { color: inherit; }
+.sp-page button { font-family: inherit; }
+.sp-page :focus-visible { outline: 2px solid var(--km-blue); outline-offset: 2px; }
+
+@keyframes sp-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sp-animate { animation: sp-fade-up 0.5s ease both; }
+.sp-animate-delay-1 { animation-delay: 0.06s; }
+.sp-animate-delay-2 { animation-delay: 0.12s; }
+
+.sp-main { flex: 1; width: 100%; padding-bottom: 110px; }
+
+.sp-footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: var(--km-sidebar-w);
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background: var(--km-card-bg);
+  border-top: 1px solid var(--km-border);
+  z-index: 5;
+}
+
+.sp-section { padding: 32px 24px; }
+.sp-section--top-border { border-top: 1px solid var(--km-border); }
+
+.sp-wrap { max-width: 900px; margin: 0 auto; }
+.sp-wrap--wide { max-width: 1100px; }
+.sp-wrap--narrow { max-width: 700px; }
+
+.sp-header { text-align: center; margin-bottom: 28px; }
+.sp-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--km-coral-dark);
+  background: #FFF1EC;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.sp-title {
+  font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+.sp-subtitle {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--km-text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---------- Cards ---------- */
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.sp-card {
+  background: var(--km-card-bg);
+  border: 1px solid var(--km-border);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--km-shadow-tiny);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+.sp-card:hover { box-shadow: var(--km-shadow-soft); transform: translateY(-3px); border-color: transparent; }
+
+.sp-card-icon {
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--km-bg);
+  color: var(--km-coral-dark);
+  flex-shrink: 0;
+}
+.sp-card-icon svg { width: 20px; height: 20px; }
+
+.sp-card-title { font-size: 15px; font-weight: 800; color: var(--km-text); line-height: 1.4; }
+.sp-card-desc { font-size: 13px; font-weight: 600; color: var(--km-text-secondary); line-height: 1.65; }
+.sp-card-link { font-size: 13px; font-weight: 700; color: var(--km-coral-dark); text-decoration: none; }
+.sp-card-link:hover { text-decoration: underline; }
+.sp-card-cta {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 12px; font-weight: 800; color: var(--km-coral-dark);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.sp-card-cta svg { width: 13px; height: 13px; }
+
+.sp-contact-card { flex-direction: row; align-items: center; gap: 16px; }
+.sp-contact-card .sp-card-icon { width: 48px; height: 48px; border-radius: 50%; }
+.sp-contact-card .sp-card-icon svg { width: 21px; height: 21px; }
+
+/* ---------- Newsroom ---------- */
+.sp-hero-banner {
+  text-align: center;
+  background: var(--km-card-bg);
+  border-radius: 20px;
+  padding: 28px 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--km-shadow-tiny);
+}
+.sp-hero-icon {
+  width: 32px; height: 32px;
+  margin: 0 auto 6px;
+  color: var(--km-coral-dark);
+}
+.sp-hero-icon svg { width: 100%; height: 100%; }
+.sp-hero-label {
+  display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--km-coral-dark); margin-bottom: 6px;
+}
+.sp-hero-heading { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 800; margin-bottom: 6px; }
+.sp-hero-desc { font-size: 14px; font-weight: 600; color: var(--km-text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.6; }
+
+.sp-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 800;
+  padding: 5px 11px; border-radius: 999px;
+  color: #fff;
+  width: fit-content;
+}
+.sp-badge svg { width: 13px; height: 13px; }
+.sp-badge--gold { background: var(--km-orange); }
+.sp-badge--silver { background: var(--km-blue); }
+
+.sp-achievement-card { border-top: 3px solid var(--km-orange); }
+.sp-achievement-card--silver { border-top-color: var(--km-blue); }
+
+.sp-links-block {
+  margin-top: 24px;
+  padding: 20px 22px;
+  background: var(--km-card-bg);
+  border-radius: 16px;
+  box-shadow: var(--km-shadow-tiny);
+}
+.sp-links-block h3 { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+.sp-links-block h3 svg { width: 16px; height: 16px; color: var(--km-coral-dark); }
+.sp-links-block p { font-size: 13px; font-weight: 600; color: var(--km-text-secondary); margin-bottom: 14px; }
+.sp-pill-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.sp-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px; border-radius: 999px;
+  background: var(--km-card-bg); box-shadow: var(--km-shadow-tiny);
+  font-size: 12px; font-weight: 700; color: var(--km-text); text-decoration: none;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.sp-pill svg { width: 13px; height: 13px; color: var(--km-text-secondary); }
+.sp-pill:hover { box-shadow: var(--km-shadow-soft); transform: translateY(-2px); }
+
+.sp-news-pub { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--km-coral-dark); }
+.sp-news-headline { font-size: 15px; font-weight: 800; color: var(--km-text); line-height: 1.45; margin: 6px 0 10px; }
+
+/* ---------- Resources ---------- */
+.sp-cat { margin-bottom: 32px; }
+.sp-cat:last-child { margin-bottom: 0; }
+.sp-cat-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.sp-cat-icon {
+  width: 40px; height: 40px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  background: var(--km-teal);
+  flex-shrink: 0;
+}
+.sp-cat-icon svg { width: 21px; height: 21px; }
+.sp-cat-icon--gov { background: var(--km-blue); }
+.sp-cat-icon--edu { background: var(--km-purple); }
+.sp-cat-icon--fam { background: var(--km-coral); }
+.sp-cat-header h2 { font-size: 18px; font-weight: 800; }
+
+.sp-source { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--km-text-secondary); letter-spacing: 0.04em; }
+
+/* ---------- Contact page extras ---------- */
+.sp-collab-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.sp-collab-tag {
+  padding: 8px 16px; border-radius: 999px;
+  background: var(--km-card-bg); color: var(--km-text);
+  font-size: 12px; font-weight: 700;
+  box-shadow: var(--km-shadow-tiny);
+}
+.sp-cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px; border-radius: 999px;
+  background: var(--km-coral); color: #fff;
+  font-weight: 800; font-size: 14px; text-decoration: none;
+  box-shadow: var(--km-shadow-tiny);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.sp-cta-btn svg { width: 15px; height: 15px; }
+.sp-cta-btn:hover { transform: translateY(-2px); box-shadow: var(--km-shadow-soft); }
+
+.sp-social-row { display: flex; gap: 12px; justify-content: center; margin-top: 18px; }
+.sp-social-icon {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--km-card-bg); box-shadow: var(--km-shadow-tiny);
+  color: var(--km-text); text-decoration: none;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+.sp-social-icon svg { width: 18px; height: 18px; }
+.sp-social-icon:hover { box-shadow: var(--km-shadow-soft); transform: translateY(-2px); color: var(--km-coral-dark); }
+
+/* ---------- Brand colors (contact cards + social row) ---------- */
+.sp-brand-mail { background: var(--km-coral) !important; color: #fff !important; }
+.sp-brand-linkedin { background: #0A66C2 !important; color: #fff !important; }
+.sp-brand-facebook { background: #1877F2 !important; color: #fff !important; }
+.sp-brand-instagram {
+  background: linear-gradient(45deg, #F09433 0%, #E6683C 25%, #DC2743 50%, #CC2366 75%, #BC1888 100%) !important;
+  color: #fff !important;
+}
+.sp-social-icon.sp-brand-linkedin:hover,
+.sp-social-icon.sp-brand-facebook:hover,
+.sp-social-icon.sp-brand-instagram:hover,
+.sp-social-icon.sp-brand-mail:hover { color: #fff; }
+
+@media (max-width: 640px) {
+  .sp-section { padding: 24px 16px; }
+  .sp-contact-card { flex-direction: column; text-align: center; }
+}

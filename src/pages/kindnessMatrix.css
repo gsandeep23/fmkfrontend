@@ -5,6 +5,11 @@
 .km-page *::before,
 .km-page *::after {
   box-sizing: border-box;
+}
+
+/* :where() carries zero specificity so this reset never outranks a shared
+   component's own margin/padding rules, regardless of stylesheet load order. */
+:where(.km-page, .km-page *, .km-page *::before, .km-page *::after) {
   margin: 0;
   padding: 0;
 }
@@ -86,11 +91,50 @@
 .km-hamburger-btn:hover { background: #B8D4FF; }
 .km-hamburger-btn svg { width: 20px; height: 20px; }
 
+.km-hamburger-wrap { position: relative; }
+
+.km-nav-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  background: transparent;
+}
+.km-nav-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 210px;
+  background: var(--km-card-bg);
+  border-radius: 14px;
+  box-shadow: var(--km-shadow-soft);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 40;
+}
+.km-nav-menu-item {
+  display: block;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--km-text);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.km-nav-menu-item:hover { background: #EAF2FF; }
+.km-nav-menu-item-active { color: var(--km-coral-dark); background: #FFF1EC; }
+
 .km-logo-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   user-select: none;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .km-logo-img {
@@ -218,7 +262,7 @@
 .km-bar {
   width: 100%;
   height: 47px;
-  border: none;
+  border: 1px solid #D1D1D1;
   border-radius: 999px;
   padding: 0 168px 0 58px;
   font-size: 16px;
@@ -344,15 +388,69 @@
 .km-google-btn-primary svg { color: var(--km-coral); }
 .km-google-btn-primary:hover { box-shadow: var(--km-shadow-soft); transform: translateY(-2px); border-color: transparent; }
 
+.km-footer-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
 .km-disclaimer {
-  max-width: 584px;
-  margin: 0 auto;
+  margin: 0;
   font-size: 12px;
   font-weight: 600;
-  color: var(--km-text-secondary);
+  color: var(--km-text-placeholder);
   text-align: center;
   line-height: 1.6;
   padding: 0 8px;
+}
+
+.km-footer-copyright {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--km-text-placeholder);
+  text-align: center;
+  line-height: 1.6;
+  padding: 0 8px;
+}
+
+.km-footer-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--km-text-placeholder);
+  text-decoration: none;
+  text-align: center;
+}
+.km-footer-email svg { width: 13px; height: 13px; flex-shrink: 0; }
+.km-footer-email:hover { text-decoration: underline; }
+
+.km-footer-email-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.km-footer-social-row { display: flex; align-items: center; gap: 8px; }
+.km-footer-social-icon {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.km-footer-social-icon svg { width: 13px; height: 13px; }
+.km-footer-social-icon:hover { transform: translateY(-1px); opacity: 0.9; }
+.km-footer-social-linkedin { background: #0A66C2; }
+.km-footer-social-facebook { background: #1877F2; }
+.km-footer-social-instagram {
+  background: linear-gradient(45deg, #F09433 0%, #E6683C 25%, #DC2743 50%, #CC2366 75%, #BC1888 100%);
 }
 
 /* ---------- Chat ---------- */
@@ -376,6 +474,7 @@
   font-size: 19px; font-weight: 700;
   letter-spacing: -0.5px;
   cursor: pointer; user-select: none; line-height: 1;
+  text-decoration: none; color: inherit;
 }
 .km-chat-logo-img {
   height: 40px;
@@ -649,13 +748,14 @@ ol.km-chat-list { list-style: decimal; }
 .km-chat-bottom {
   position: fixed; bottom: 0; left: var(--km-sidebar-w); right: 0;
   display: flex; flex-direction: column;
+  background: #fff;
   z-index: 5;
   transition: left 0.25s ease;
 }
 .km-bottom-bar {
   background: transparent;
-  padding: 14px 10px;
-  margin-bottom: 35px;
+  padding: 0px 10px;
+  margin-bottom: 0px;
   display: flex; justify-content: center;
 }
 .km-bottom-inner { width: 100%; max-width: 584px; position: relative; }
@@ -690,10 +790,10 @@ ol.km-chat-list { list-style: decimal; }
 }
 .km-typing-row span {
   width: 8px; height: 8px; border-radius: 50%;
-  background: var(--km-coral); animation: km-tdot 1.2s infinite;
+  background: var(--km-text-secondary); animation: km-tdot 1.2s infinite;
 }
-.km-typing-row span:nth-child(2) { animation-delay:.2s; background: var(--km-orange); }
-.km-typing-row span:nth-child(3) { animation-delay:.4s; background: var(--km-yellow); }
+.km-typing-row span:nth-child(2) { animation-delay:.2s; }
+.km-typing-row span:nth-child(3) { animation-delay:.4s; }
 @keyframes km-tdot { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
 
 .km-cam-modal {

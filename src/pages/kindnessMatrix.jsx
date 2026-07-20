@@ -464,10 +464,6 @@ export default function KindnessMatrix() {
 
   useEffect(() => { pendingImgRef.current = pendingImg; }, [pendingImg]);
 
-  useEffect(() => {
-    if (messagesRef.current) messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-  }, [messages, typing]);
-
   useEffect(() => () => {
     camStreamRef.current?.getTracks().forEach((t) => t.stop());
   }, []);

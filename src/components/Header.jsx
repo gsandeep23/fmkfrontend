@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import logot from '../pages/assets/logo.png';
 
 function HamburgerIcon() {
@@ -10,7 +12,47 @@ function HamburgerIcon() {
   );
 }
 
+const NAV_LINKS = [
+  { to: '/', label: 'Home' },
+  { to: '/newsroom', label: 'Newsroom' },
+  { to: '/resources', label: 'Resources' },
+  { to: '/contact', label: 'Contact Us' },
+];
+
+function NavMenu({ open, onClose }) {
+  if (!open) return null;
+  return (
+    <>
+      <div className="km-nav-menu-overlay" onClick={onClose} />
+      <div className="km-nav-menu">
+        {NAV_LINKS.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.to === '/'}
+            onClick={onClose}
+            className={({ isActive }) => `km-nav-menu-item${isActive ? ' km-nav-menu-item-active' : ''}`}
+          >
+            {item.label}
+          </NavLink>
+        ))}
+      </div>
+    </>
+  );
+}
+
 export default function Header({ variant = 'home', onLogoClick }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const hamburger = (
+    <div className="km-hamburger-wrap">
+      <button className="km-hamburger-btn" title="Menu" onClick={() => setMenuOpen((o) => !o)}>
+        <HamburgerIcon />
+      </button>
+      <NavMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+    </div>
+  );
+
   if (variant === 'chat') {
     return (
       <div className="km-chat-header">
@@ -18,9 +60,7 @@ export default function Header({ variant = 'home', onLogoClick }) {
           <img className="km-chat-logo-img" src={logot} alt="Kindness Matrix" />
           <span className="km-word1">Kindness</span> <span className="km-word2">Matrix</span>
         </div>
-        <button className="km-hamburger-btn">
-          <HamburgerIcon />
-        </button>
+        {hamburger}
       </div>
     );
   }
@@ -28,16 +68,14 @@ export default function Header({ variant = 'home', onLogoClick }) {
   return (
     <>
       <div className="km-home-header-bar">
-        <button className="km-hamburger-btn">
-          <HamburgerIcon />
-        </button>
+        {hamburger}
       </div>
-      <div className="km-logo-block">
-        <img className="km-logo-img" src={logot} alt="Kindness Matrix" onClick={onLogoClick} />
+      <Link to="/" className="km-logo-block" onClick={onLogoClick}>
+        <img className="km-logo-img" src={logot} alt="Kindness Matrix" />
         <div className="km-logo">
           <span className="km-word1">Kindness</span> <span className="km-word2">Matrix</span>
         </div>
-      </div>
+      </Link>
     </>
   );
 }
