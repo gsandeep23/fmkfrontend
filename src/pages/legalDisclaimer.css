@@ -1,0 +1,143 @@
+.ld-page,
+.ld-page *,
+.ld-page *::before,
+.ld-page *::after {
+  box-sizing: border-box;
+}
+
+/* :where() carries zero specificity so this reset never outranks a shared
+   component's own margin/padding rules, regardless of stylesheet load order. */
+:where(.ld-page, .ld-page *, .ld-page *::before, .ld-page *::after) {
+  margin: 0;
+  padding: 0;
+}
+
+.ld-page {
+  --km-bg: #FFFBF5;
+  --km-card-bg: #FFFFFF;
+  --km-text: #2D2A26;
+  --km-text-secondary: #8A8078;
+  --km-text-placeholder: #B8AFA6;
+  --km-border: #F3E4D2;
+
+  --km-coral: #FF6B6B;
+  --km-coral-dark: #F4511E;
+  --km-orange: #FFA94D;
+  --km-yellow: #FFD43B;
+  --km-teal: #20C997;
+  --km-blue: #4DABF7;
+  --km-purple: #9775FA;
+  --km-pink: #F783AC;
+
+  --km-shadow-soft: 0 10px 26px rgba(255, 107, 107, 0.14);
+  --km-shadow-tiny: 0 3px 10px rgba(45, 42, 38, 0.08);
+
+  /* This page renders no sidebar, so the shared header's sidebar-offset var must resolve to 0. */
+  --km-sidebar-w: 0px;
+
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--km-bg);
+  color: var(--km-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  /* Clears the fixed .km-home-header-bar rendered by the shared Header component. */
+  padding-top: 60px;
+}
+
+:where(.ld-page a) { color: inherit; }
+.ld-page button { font-family: inherit; }
+.ld-page :focus-visible { outline: 2px solid var(--km-blue); outline-offset: 2px; }
+
+.ld-main { flex: 1; width: 100%; padding-bottom: 110px; }
+
+.ld-footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: var(--km-sidebar-w);
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background: var(--km-card-bg);
+  border-top: 1px solid var(--km-border);
+  z-index: 5;
+}
+
+.ld-section { padding: 32px 24px; }
+.ld-wrap { max-width: 900px; margin: 0 auto; }
+
+.ld-header { text-align: center; margin-bottom: 28px; }
+.ld-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--km-coral-dark);
+  background: #FFF1EC;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.ld-title {
+  font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+.ld-subtitle {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--km-text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ld-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.ld-card {
+  background: var(--km-card-bg);
+  border-radius: 14px;
+  border-top: 4px solid var(--card-color, var(--km-coral));
+  padding: 20px;
+  box-shadow: var(--km-shadow-tiny);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ld-card--highlight { background: #FFF8F0; }
+.ld-card-icon { font-size: 26px; line-height: 1; }
+.ld-card-title { font-size: 15px; font-weight: 800; color: var(--km-text); }
+.ld-card p { font-size: 13px; font-weight: 600; color: var(--km-text-secondary); line-height: 1.65; }
+
+.ld-links-block {
+  margin-top: 32px;
+  padding: 20px 22px;
+  background: var(--km-card-bg);
+  border-radius: 16px;
+  box-shadow: var(--km-shadow-tiny);
+}
+.ld-links-block h3 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+.ld-links-block p { font-size: 13px; font-weight: 600; color: var(--km-text-secondary); margin-bottom: 14px; }
+.ld-pill-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.ld-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px; border-radius: 999px;
+  background: var(--km-bg); box-shadow: var(--km-shadow-tiny);
+  font-size: 12px; font-weight: 700; color: var(--km-text); text-decoration: none;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.ld-pill svg { width: 13px; height: 13px; color: var(--km-text-secondary); }
+.ld-pill:hover { box-shadow: var(--km-shadow-soft); transform: translateY(-2px); }
+
+@media (max-width: 640px) {
+  .ld-section { padding: 24px 16px; }
+}

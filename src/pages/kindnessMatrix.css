@@ -71,7 +71,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 4px 22px;
+  padding: 12px 22px;
   background: #fff;
   z-index: 20;
   transition: left 0.25s ease;
@@ -90,6 +90,33 @@
 }
 .km-hamburger-btn:hover { background: #B8D4FF; }
 .km-hamburger-btn svg { width: 20px; height: 20px; }
+
+.km-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.km-donate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: var(--km-coral-dark);
+  color: #fff;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.km-donate-btn svg { width: 12px; height: 12px; }
+.km-donate-btn:hover { background: var(--km-coral); transform: translateY(-1px); }
 
 .km-hamburger-wrap { position: relative; }
 
@@ -400,7 +427,7 @@
   margin: 0;
   font-size: 12px;
   font-weight: 600;
-  color: var(--km-text-placeholder);
+  color: #8A8078;
   text-align: center;
   line-height: 1.6;
   padding: 0 8px;
@@ -410,48 +437,19 @@
   margin: 0;
   font-size: 11px;
   font-weight: 600;
-  color: var(--km-text-placeholder);
+  color: #999896;
   text-align: center;
   line-height: 1.6;
   padding: 0 8px;
 }
 
-.km-footer-email {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
+.km-footer-legal {
+  font-size: 11px;
   font-weight: 600;
-  color: var(--km-text-placeholder);
-  text-decoration: none;
-  text-align: center;
+  color: #999896;
+  text-decoration: underline;
 }
-.km-footer-email svg { width: 13px; height: 13px; flex-shrink: 0; }
-.km-footer-email:hover { text-decoration: underline; }
-
-.km-footer-email-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.km-footer-social-row { display: flex; align-items: center; gap: 8px; }
-.km-footer-social-icon {
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff;
-  transition: transform 0.15s ease, opacity 0.15s ease;
-}
-.km-footer-social-icon svg { width: 13px; height: 13px; }
-.km-footer-social-icon:hover { transform: translateY(-1px); opacity: 0.9; }
-.km-footer-social-linkedin { background: #0A66C2; }
-.km-footer-social-facebook { background: #1877F2; }
-.km-footer-social-instagram {
-  background: linear-gradient(45deg, #F09433 0%, #E6683C 25%, #DC2743 50%, #CC2366 75%, #BC1888 100%);
-}
+.km-footer-legal:hover { color: var(--km-text); }
 
 /* ---------- Chat ---------- */
 .km-chat {
@@ -463,7 +461,7 @@
 .km-chat-header {
   display: flex; align-items: center;
   justify-content: space-between;
-  padding: 4px 22px;
+  padding: 10px 22px;
   background: #fff;
   flex-shrink: 0; gap: 10px;
 }

@@ -787,8 +787,12 @@ export default function KindnessMatrix() {
 
           <div className="km-home-buttons">
             <button className="km-google-btn" onClick={handleKindnessSearch}><SearchIcon /> Kindness Search</button>
-            <button className="km-google-btn km-google-btn-primary" onClick={handleFeelingKindness}><HeartIcon /> Kindness Sparks</button>
+            <button className="km-google-btn km-google-btn-primary" onClick={handleFeelingKindness}><HeartIcon /> I'm feeling Kind</button>
           </div>
+
+          <p className="km-disclaimer" style={{ marginTop: 10 }}>
+            Kindness Matrix is AI and can make mistakes.
+          </p>
         </div>
       )}
 
