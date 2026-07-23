@@ -139,7 +139,7 @@ function renderChatText(text) {
   });
 }
 
-function IdeaRow({ idea, idx = 0, showToast }) {
+function IdeaRow({ idea, objName, idx = 0, showToast }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [moreLoading, setMoreLoading] = useState(false);
   const [moreLoaded, setMoreLoaded] = useState(false);
@@ -245,19 +245,19 @@ function IdeaRow({ idea, idx = 0, showToast }) {
     const t = setTimeout(() => {
       if (kaType === 'offline' && !zip.trim()) { setActionQuery(''); return; }
       setActionLoading(true);
-      postActionOptions(idea, kaType === 'offline' ? zip : '')
+      postActionOptions(objName || idea, kaType === 'offline' ? zip : '')
         .then((res) => setActionQuery(res.suggestion || res.query || ''))
         .catch(() => setActionQuery(''))
         .finally(() => setActionLoading(false));
     }, 400);
 
     return () => clearTimeout(t);
-  }, [kaType, zip, idea]);
+  }, [kaType, zip, idea, objName]);
 
   function renderKaResult() {
     if (kaType === 'online') {
       if (actionLoading) return <em>Finding the best options...</em>;
-      const q = encodeURIComponent(actionQuery || idea.split(':')[0] || idea);
+      const q = encodeURIComponent(actionQuery || objName || idea);
       return (
         <>
           <div className="km-share-label">Shop online:</div>
@@ -274,7 +274,7 @@ function IdeaRow({ idea, idx = 0, showToast }) {
     if (kaType === 'offline') {
       if (!zip.trim()) return <span>📍 Please enter your ZIP code above first.</span>;
       if (actionLoading) return <em>Finding stores near {zip}...</em>;
-      const qOffline = encodeURIComponent(actionQuery || `${idea.split(':')[0] || idea} store near ${zip}`);
+      const qOffline = encodeURIComponent(actionQuery || `${objName || idea} store near ${zip}`);
       return (
         <a className="km-share-link" style={{ background: '#34A853', fontSize: '12px', padding: '7px 14px' }}
           href={`https://www.google.com/maps/search/?api=1&query=${qOffline}`} target="_blank" rel="noopener noreferrer">
@@ -410,7 +410,7 @@ function MessageRow({ msg, showToast, onSpeak, onGoHome, showBack }) {
             <>
               <div className="km-obj-label">Kindness ideas</div>
               {msg.ideas.map((idea, idx) => (
-                <IdeaRow key={idx} idea={idea} idx={idx} showToast={showToast} />
+                <IdeaRow key={idx} idea={idea} objName={msg.objName} idx={idx} showToast={showToast} />
               ))}
             </>
           ) : (
@@ -791,7 +791,7 @@ export default function KindnessMatrix() {
           </div>
 
           <p className="km-disclaimer" style={{ marginTop: 10 }}>
-            Kindness Matrix is AI and can make mistakes.
+            Kindness Matrix is AI and can make mistakes. Always use your best judgment, be safe, and have fun!
           </p>
         </div>
       )}

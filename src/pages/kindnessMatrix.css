@@ -179,7 +179,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 76px 16px 110px;
+  padding: 76px 60px 110px 16px;
   overflow-y: auto;
   margin-left: var(--km-sidebar-w);
   transition: margin-left 0.25s ease;
@@ -188,14 +188,21 @@
 .km-logo {
   font-size: clamp(24px, 4vw, 34px);
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: 0;
   line-height: 1;
   margin-bottom: 18px;
-  user-select: none;
+  user-select: text;
+  cursor: text;
+  text-transform: none;
 }
-.km-word1, .km-word2 { font-size: inherit; font-weight: inherit; }
-.km-word1 { color: #4285F4; }
-.km-word2 { color: #34A853; }
+.km-word1, .km-word2 {
+  font-size: inherit;
+  font-weight: 700;
+  font-family: 'Nunito';
+  letter-spacing: 0;
+  text-transform: none;
+}
+.km-word1, .km-word2 { color: #E0A52C; }
 
 .km-mission-text {
   max-width: 584px;
