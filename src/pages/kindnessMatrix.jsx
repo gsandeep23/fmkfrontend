@@ -90,6 +90,14 @@ function HeartIcon() {
     </svg>
   );
 }
+function SparkleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <path d="M12 2l1.8 5.6L19.4 9.4l-5.6 1.8L12 16.8l-1.8-5.6L4.6 9.4l5.6-1.8L12 2z" />
+      <path d="M19 14l.9 2.8L22.7 17.7l-2.8.9L19 21.4l-.9-2.8-2.8-.9 2.8-.9L19 14z" />
+    </svg>
+  );
+}
 function SendIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -787,7 +795,8 @@ export default function KindnessMatrix() {
 
           <div className="km-home-buttons">
             <button className="km-google-btn" onClick={handleKindnessSearch}><SearchIcon /> Kindness Search</button>
-            <button className="km-google-btn km-google-btn-primary" onClick={handleFeelingKindness}><HeartIcon /> I'm feeling Kind</button>
+            <button className="km-google-btn km-google-btn-primary" onClick={handleFeelingKindness}><HeartIcon /> I'm Feeling Kind</button>
+            <button className="km-google-btn km-google-btn-primary" type="button"><SparkleIcon /> Kindness Sparks</button>
           </div>
 
           <p className="km-disclaimer" style={{ marginTop: 10 }}>

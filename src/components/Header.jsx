@@ -23,6 +23,12 @@ function DonateButton() {
   );
 }
 
+function SignInButton() {
+  return (
+    <button className="km-signin-btn" type="button">Sign in</button>
+  );
+}
+
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/newsroom', label: 'Newsroom' },
@@ -64,21 +70,18 @@ export default function Header({ variant = 'home', onLogoClick }) {
     </div>
   );
 
-  const actions = (
-    <div className="km-header-actions">
-      <DonateButton />
-      {hamburger}
-    </div>
-  );
-
   if (variant === 'chat') {
     return (
       <div className="km-chat-header">
+        {hamburger}
         <div className="km-chat-logo" onClick={onLogoClick}>
           <img className="km-chat-logo-img" src={logot} alt="Kindness Matrix" />
           <span className="km-word1">Kindness</span> <span className="km-word2">Matrix</span>
         </div>
-        {actions}
+        <div className="km-header-right">
+          <DonateButton />
+          <SignInButton />
+        </div>
       </div>
     );
   }
@@ -86,7 +89,11 @@ export default function Header({ variant = 'home', onLogoClick }) {
   return (
     <>
       <div className="km-home-header-bar">
-        {actions}
+        {hamburger}
+        <div className="km-header-right">
+          <DonateButton />
+          <SignInButton />
+        </div>
       </div>
       <Link to="/" className="km-logo-block" onClick={onLogoClick}>
         <img className="km-logo-img" src={logot} alt="Kindness Matrix" />

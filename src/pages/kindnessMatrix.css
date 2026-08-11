@@ -70,7 +70,7 @@
   right: 0;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 12px 22px;
   background: #fff;
   z-index: 20;
@@ -90,12 +90,6 @@
 }
 .km-hamburger-btn:hover { background: #B8D4FF; }
 .km-hamburger-btn svg { width: 20px; height: 20px; }
-
-.km-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
 
 .km-donate-btn {
   display: inline-flex;
@@ -118,6 +112,28 @@
 .km-donate-btn svg { width: 12px; height: 12px; }
 .km-donate-btn:hover { background: var(--km-coral); transform: translateY(-1px); }
 
+.km-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.km-signin-btn {
+  height: 36px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: none;
+  background: #D3E3FD;
+  color: #001D35;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+.km-signin-btn:hover { background: #C2D7FC; }
+
 .km-hamburger-wrap { position: relative; }
 
 .km-nav-menu-overlay {
@@ -129,7 +145,7 @@
 .km-nav-menu {
   position: absolute;
   top: calc(100% + 10px);
-  right: 0;
+  left: 0;
   min-width: 210px;
   background: var(--km-card-bg);
   border-radius: 14px;

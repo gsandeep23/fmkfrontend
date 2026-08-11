@@ -5,9 +5,9 @@ import './sitePages.css';
 
 const CONTACT_CARDS = [
   { icon: IconMail, brandClass: 'sp-brand-mail', title: 'Email Us', href: 'mailto:info@americasmiles.org', label: 'info@americasmiles.org' },
-  { icon: IconLinkedIn, brandClass: 'sp-brand-linkedin', title: 'LinkedIn', href: 'https://www.linkedin.com/company/americasmilesorg', label: 'america smiles org' },
+  { icon: IconLinkedIn, brandClass: 'sp-brand-linkedin', title: 'LinkedIn', href: 'https://www.linkedin.com/company/americasmilesorg', label: 'AMERICA SMILES INC' },
   { icon: IconFacebook, brandClass: 'sp-brand-facebook', title: 'Facebook', href: 'https://www.facebook.com/people/America-Smiles/61560429853169/', label: 'America Smiles' },
-  { icon: IconInstagram, brandClass: 'sp-brand-instagram', title: 'Instagram', href: 'https://www.instagram.com/americasmilesorg/', label: '@americasmilesorg' },
+  { icon: IconInstagram, brandClass: 'sp-brand-instagram', title: 'Instagram', href: 'https://www.instagram.com/americasmilesorg/', label: 'America Smiles Inc' },
 ];
 
 const COLLAB_TAGS = ['Mental Wellness', 'Education', 'AI', 'Community Outreach', 'Social Impact'];

@@ -8,6 +8,8 @@ export default function Footer() {
         <br/>
         © 2026 America Smiles. All rights reserved.{' '}
         <Link to="/legal-disclaimer" className="km-footer-legal">Legal Disclaimer</Link>
+        {' '}·{' '}
+        <a href="https://americasmiles.org/" target="_blank" rel="noopener noreferrer" className="km-footer-legal">America Smiles</a>
       </p>
     </div>
   );
