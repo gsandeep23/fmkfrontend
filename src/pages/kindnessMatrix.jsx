@@ -622,6 +622,10 @@ export default function KindnessMatrix() {
     send(query, pendingImg?.b64, pendingImg?.dataUrl);
   }
 
+  function handleKindnessSparks() {
+    window.location.href = 'https://kindnessspark.org/';
+  }
+
   async function handleFileChange(e) {
     const file = e.target.files[0];
     if (!file) return;
@@ -796,7 +800,7 @@ export default function KindnessMatrix() {
           <div className="km-home-buttons">
             <button className="km-google-btn" onClick={handleKindnessSearch}><SearchIcon /> Kindness Search</button>
             <button className="km-google-btn km-google-btn-primary" onClick={handleFeelingKindness}><HeartIcon /> I'm Feeling Kind</button>
-            <button className="km-google-btn km-google-btn-primary" type="button"><SparkleIcon /> Kindness Sparks</button>
+            <button className="km-google-btn km-google-btn-primary" type="button" onClick={handleKindnessSparks}><SparkleIcon /> Kindness Sparks</button>
           </div>
 
           <p className="km-disclaimer" style={{ marginTop: 10 }}>

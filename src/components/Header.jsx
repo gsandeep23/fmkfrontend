@@ -23,12 +23,6 @@ function DonateButton() {
   );
 }
 
-function SignInButton() {
-  return (
-    <button className="km-signin-btn" type="button">Sign in</button>
-  );
-}
-
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/newsroom', label: 'Newsroom' },
@@ -80,7 +74,6 @@ export default function Header({ variant = 'home', onLogoClick }) {
         </div>
         <div className="km-header-right">
           <DonateButton />
-          <SignInButton />
         </div>
       </div>
     );
@@ -92,7 +85,6 @@ export default function Header({ variant = 'home', onLogoClick }) {
         {hamburger}
         <div className="km-header-right">
           <DonateButton />
-          <SignInButton />
         </div>
       </div>
       <Link to="/" className="km-logo-block" onClick={onLogoClick}>
