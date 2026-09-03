@@ -6,6 +6,11 @@ import {
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import Sidebar from '../components/Sidebar.jsx';
+import {
+  IconWhatsApp, IconFacebook, IconTelegram, IconTwitter, IconMail,
+  IconVideo, IconVideoFilled, IconUsers, IconPhone,
+  IconCart, IconStore, IconShare, IconCalendar,
+} from '../components/icons.jsx';
 import './kindnessMatrix.css';
 
 function fileToB64(file) {
@@ -302,11 +307,11 @@ function IdeaRow({ idea, objName, idx = 0, showToast }) {
           <div className="km-msg-card" style={{ background: '#e3f2fd', borderLeft: '3px solid #1877F2' }}>{msg}</div>
           <div className="km-share-label">Share via:</div>
           <div className="km-share-link-row">
-            <a className="km-share-link" style={{ background: '#25D366' }} href={`https://wa.me/?text=${enc}`} target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
-            <a className="km-share-link" style={{ background: '#1877F2' }} href={`https://www.facebook.com/sharer/sharer.php?u=https://westportsmiles.org&quote=${enc}`} target="_blank" rel="noopener noreferrer">📘 Facebook</a>
-            <a className="km-share-link" style={{ background: '#229ED9' }} href={`https://t.me/share/url?url=https://westportsmiles.org&text=${enc}`} target="_blank" rel="noopener noreferrer">✈️ Telegram</a>
-            <a className="km-share-link" style={{ background: '#000' }} href={`https://twitter.com/intent/tweet?text=${enc}`} target="_blank" rel="noopener noreferrer">🐦 Twitter</a>
-            <a className="km-share-link" style={{ background: '#EA4335' }} href={`https://mail.google.com/mail/?view=cm&fs=1&su=${subject}&body=${enc}`} target="_blank" rel="noopener noreferrer">📧 Gmail</a>
+            <a className="km-share-link" href={`https://wa.me/?text=${enc}`} target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#25D366' }}><IconWhatsApp className="km-share-icon" /></span> WhatsApp</a>
+            <a className="km-share-link" href={`https://www.facebook.com/sharer/sharer.php?u=https://westportsmiles.org&quote=${enc}`} target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#1877F2' }}><IconFacebook className="km-share-icon" /></span> Facebook</a>
+            <a className="km-share-link" href={`https://t.me/share/url?url=https://westportsmiles.org&text=${enc}`} target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#229ED9' }}><IconTelegram className="km-share-icon" /></span> Telegram</a>
+            <a className="km-share-link" href={`https://twitter.com/intent/tweet?text=${enc}`} target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#000' }}><IconTwitter className="km-share-icon" /></span> Twitter</a>
+            <a className="km-share-link" href={`https://mail.google.com/mail/?view=cm&fs=1&su=${subject}&body=${enc}`} target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#EA4335' }}><IconMail className="km-share-icon" /></span> Gmail</a>
           </div>
         </>
       );
@@ -321,11 +326,11 @@ function IdeaRow({ idea, objName, idx = 0, showToast }) {
           <div className="km-msg-card" style={{ background: '#e8f5e9', borderLeft: '3px solid #34A853' }}>{kaText}</div>
           <div className="km-share-label">Schedule via:</div>
           <div className="km-share-link-row">
-            <a className="km-share-link" style={{ background: '#34A853' }} href="https://meet.google.com/new" target="_blank" rel="noopener noreferrer">🎥 Google Meet</a>
-            <a className="km-share-link" style={{ background: '#2D8CFF' }} href="https://zoom.us/meeting/schedule" target="_blank" rel="noopener noreferrer">💻 Zoom</a>
-            <a className="km-share-link" style={{ background: '#6264A7' }} href="https://teams.microsoft.com/l/meeting/new" target="_blank" rel="noopener noreferrer">👥 Teams</a>
-            <a className="km-share-link" style={{ background: '#34C759' }} href="facetime://" target="_blank" rel="noopener noreferrer">📱 FaceTime</a>
-            <a className="km-share-link" style={{ background: '#25D366' }} href={`https://wa.me/?text=${enc2}`} target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+            <a className="km-share-link" href="https://meet.google.com/new" target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#34A853' }}><IconVideo className="km-share-icon" /></span> Google Meet</a>
+            <a className="km-share-link" href="https://zoom.us/meeting/schedule" target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#2D8CFF' }}><IconVideoFilled className="km-share-icon" /></span> Zoom</a>
+            <a className="km-share-link" href="https://teams.microsoft.com/l/meeting/new" target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#6264A7' }}><IconUsers className="km-share-icon" /></span> Teams</a>
+            <a className="km-share-link" href="facetime://" target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#34C759' }}><IconPhone className="km-share-icon" /></span> FaceTime</a>
+            <a className="km-share-link" href={`https://wa.me/?text=${enc2}`} target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#25D366' }}><IconWhatsApp className="km-share-icon" /></span> WhatsApp</a>
           </div>
         </>
       );
@@ -370,10 +375,10 @@ function IdeaRow({ idea, objName, idx = 0, showToast }) {
                 value={zip} onChange={(e) => setZip(e.target.value)} />
             </div>
             <div className="km-ka-buttons">
-              <button className="km-ka-btn" style={{ background: '#4C6FE0' }} onClick={() => handleKaClick('online')}>🛒 Buy Online</button>
-              <button className="km-ka-btn" style={{ background: '#2E9E8F' }} onClick={() => handleKaClick('offline')}>🏪 Buy Offline</button>
-              <button className="km-ka-btn" style={{ background: '#6C63D6' }} onClick={() => handleKaClick('share')}>🤝 Share</button>
-              <button className="km-ka-btn" style={{ background: '#3D7EA6' }} onClick={() => handleKaClick('meetup')}>📅 Schedule</button>
+              <button className="km-ka-btn" onClick={() => handleKaClick('online')}><span className="km-share-icon-badge" style={{ background: '#4C6FE0' }}><IconCart className="km-share-icon" /></span> Buy Online</button>
+              <button className="km-ka-btn" onClick={() => handleKaClick('offline')}><span className="km-share-icon-badge" style={{ background: '#2E9E8F' }}><IconStore className="km-share-icon" /></span> Buy Offline</button>
+              <button className="km-ka-btn" onClick={() => handleKaClick('share')}><span className="km-share-icon-badge" style={{ background: '#6C63D6' }}><IconShare className="km-share-icon" /></span> Share</button>
+              <button className="km-ka-btn" onClick={() => handleKaClick('meetup')}><span className="km-share-icon-badge" style={{ background: '#3D7EA6' }}><IconCalendar className="km-share-icon" /></span> Schedule</button>
             </div>
             {kaType && <div className="km-ka-result">{renderKaResult()}</div>}
           </div>

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop.jsx';
+import KindnessBotWidget from './components/KindnessBotWidget.jsx';
 import KindnessMatrix from './pages/kindnessMatrix.jsx';
 import Newsroom from './pages/Newsroom.jsx';
 import Resources from './pages/Resources.jsx';
@@ -10,6 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <KindnessBotWidget />
       <Routes>
         <Route path="/" element={<KindnessMatrix />} />
         <Route path="/newsroom" element={<Newsroom />} />
