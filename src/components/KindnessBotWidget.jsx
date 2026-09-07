@@ -57,10 +57,48 @@ export default function KindnessBotWidget() {
           display: flex; flex-direction: column; align-items: center;
         }
         .launcher-wrap.hidden { display: none; }
+        .puppy-stage {
+          position: relative; width: 170px; height: 64px; margin-bottom: 4px;
+          pointer-events: none;
+        }
+        .puppy {
+          position: absolute; left: 50%; top: 50%; margin-left: -30px; margin-top: -30px;
+          width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+          display: block; transform-origin: center;
+          animation: kbot-walk 4.2s ease-in-out infinite;
+        }
+        @keyframes kbot-walk {
+          0%   { transform: translate(-56px, 0); }
+          8%   { transform: translate(-56px, -5px); }
+          16%  { transform: translate(-56px, 0); }
+          46%  { transform: translate(56px, 0); }
+          58%  { transform: translate(56px, -5px); }
+          66%  { transform: translate(56px, 0); }
+          100% { transform: translate(-56px, 0); }
+        }
+        .puppy-stage.thinking .puppy {
+          animation: kbot-think 1.5s ease-in-out infinite;
+        }
+        @keyframes kbot-think {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          25%  { transform: translate(0, -2px) rotate(-6deg); }
+          75%  { transform: translate(0, -2px) rotate(6deg); }
+        }
+        .thought {
+          position: absolute; left: 50%; top: -10px; margin-left: 10px;
+          font-size: 19px; opacity: 0;
+        }
+        .puppy-stage.thinking .thought {
+          animation: kbot-thought 1.5s ease-in-out infinite;
+        }
+        @keyframes kbot-thought {
+          0%, 100% { opacity: 0; transform: translateY(3px) scale(.7); }
+          50%      { opacity: 1; transform: translateY(-5px) scale(1); }
+        }
         .launcher {
-          margin-top: -10px; border: 1px solid #dadce0; border-radius: 999px;
-          padding: 8px 16px 8px 16px; background: #fff; color: #202124; cursor: pointer;
-          font: 500 13px/1 inherit; box-shadow: 0 2px 10px rgba(60,64,67,.24);
+          margin-top: -14px; border: 1px solid #dadce0; border-radius: 999px;
+          padding: 14px 28px; background: #fff; color: #202124; cursor: pointer;
+          font: 600 19px/1 inherit; box-shadow: 0 2px 10px rgba(60,64,67,.24);
         }
         .launcher:hover { box-shadow: 0 4px 14px rgba(60,64,67,.32); }
         .head {
@@ -71,9 +109,6 @@ export default function KindnessBotWidget() {
           width: 34px; height: 34px; border-radius: 50%; flex: 0 0 34px;
           object-fit: cover; display: block;
           animation: kbot-bounce 1.8s linear infinite;
-        }
-        .launcher-wrap .dot {
-          width: 48px; height: 48px; flex: 0 0 48px;
         }
         @keyframes kbot-bounce {
           0%   { transform: translate(0, 0); }
@@ -144,7 +179,7 @@ export default function KindnessBotWidget() {
         @keyframes b { 0%,60%,100% { opacity:.3 } 30% { opacity:1 } }
       </style>
       <div class="launcher-wrap">
-        <img class="dot" src="${ICON}" alt="">
+        <div class="puppy-stage"><img class="puppy" src="${ICON}" alt=""><span class="thought">💭</span></div>
         <button class="launcher" type="button" title="Ask KindnessBot">KindnessBot</button>
       </div>
       <div class="panel" part="panel">
@@ -165,6 +200,7 @@ export default function KindnessBotWidget() {
 
     const panel = root.querySelector('.panel');
     const launcherWrap = root.querySelector('.launcher-wrap');
+    const puppyStage = root.querySelector('.puppy-stage');
     const log = root.querySelector('.log');
     const form = root.querySelector('.foot');
     const input = root.querySelector('.foot input');
@@ -260,6 +296,7 @@ export default function KindnessBotWidget() {
       if (busy || !message.trim()) return;
       busy = true;
       send.disabled = true;
+      puppyStage.classList.add('thinking');
       bubble('me', message);
 
       const typing = bubble('bot', '');
@@ -287,6 +324,7 @@ export default function KindnessBotWidget() {
       } finally {
         busy = false;
         send.disabled = false;
+        puppyStage.classList.remove('thinking');
         log.scrollTop = log.scrollHeight;
         input.focus();
       }
