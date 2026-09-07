@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logot from '../pages/assets/logo.png';
-import { IconHeart } from './icons.jsx';
-
-const DONATE_URL = 'https://givebutter.com/america-smiles-westport-dbnjrp?fbclid=IwY2xjawRqyxxleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeWcpAgDcbCT2QncBN-jwNMUeTfekaSJcr6uO1iLuhplhAJ8r2jETb3E18yNs_aem_1z_xHfTM_T0Kz_UKNhD9wg';
 
 function HamburgerIcon() {
   return (
@@ -12,14 +9,6 @@ function HamburgerIcon() {
       <line x1="4" y1="12" x2="20" y2="12" />
       <line x1="4" y1="17" x2="20" y2="17" />
     </svg>
-  );
-}
-
-function DonateButton() {
-  return (
-    <a href={DONATE_URL} target="_blank" rel="noopener noreferrer" className="km-donate-btn">
-      <IconHeart fill="currentColor" stroke="none" /> Donate
-    </a>
   );
 }
 
@@ -72,9 +61,6 @@ export default function Header({ variant = 'home', onLogoClick }) {
           <img className="km-chat-logo-img" src={logot} alt="Kindness Matrix" />
           <span className="km-word1">Kindness</span> <span className="km-word2">Matrix</span>
         </div>
-        <div className="km-header-right">
-          <DonateButton />
-        </div>
       </div>
     );
   }
@@ -83,9 +69,6 @@ export default function Header({ variant = 'home', onLogoClick }) {
     <>
       <div className="km-home-header-bar">
         {hamburger}
-        <div className="km-header-right">
-          <DonateButton />
-        </div>
       </div>
       <Link to="/" className="km-logo-block" onClick={onLogoClick}>
         <img className="km-logo-img" src={logot} alt="Kindness Matrix" />
