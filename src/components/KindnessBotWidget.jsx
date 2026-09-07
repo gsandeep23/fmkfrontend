@@ -52,14 +52,17 @@ export default function KindnessBotWidget() {
           box-shadow: 0 12px 32px rgba(60,64,67,.28);
         }
         .panel.open { display: flex; }
+        .launcher-wrap {
+          position: fixed; right: 46px; bottom: 42px; z-index: 1;
+          display: flex; flex-direction: column; align-items: center;
+        }
+        .launcher-wrap.hidden { display: none; }
         .launcher {
-          position: fixed; right: 46px; bottom: 42px; display: flex; align-items: center; gap: 8px;
-          padding: 6px 16px 6px 6px; border: 1px solid #dadce0; border-radius: 999px;
-          background: #fff; color: #202124; cursor: pointer; font: 500 14px/1 inherit;
-          box-shadow: 0 2px 10px rgba(60,64,67,.24);
+          margin-top: -10px; border: 1px solid #dadce0; border-radius: 999px;
+          padding: 8px 16px 8px 16px; background: #fff; color: #202124; cursor: pointer;
+          font: 500 13px/1 inherit; box-shadow: 0 2px 10px rgba(60,64,67,.24);
         }
         .launcher:hover { box-shadow: 0 4px 14px rgba(60,64,67,.32); }
-        .launcher.hidden { display: none; }
         .head {
           display: flex; align-items: center; gap: 8px; padding: 10px 12px;
           border-bottom: 1px solid #ecedef; font: 500 14px/1 inherit; color: #202124;
@@ -69,7 +72,7 @@ export default function KindnessBotWidget() {
           object-fit: cover; display: block;
           animation: kbot-bounce 1.8s linear infinite;
         }
-        .launcher .dot {
+        .launcher-wrap .dot {
           width: 48px; height: 48px; flex: 0 0 48px;
         }
         @keyframes kbot-bounce {
@@ -140,9 +143,10 @@ export default function KindnessBotWidget() {
         .typing span:nth-child(3) { animation-delay: .4s }
         @keyframes b { 0%,60%,100% { opacity:.3 } 30% { opacity:1 } }
       </style>
-      <button class="launcher" type="button" title="Ask KindnessBot">
-        <img class="dot" src="${ICON}" alt="">KindnessBot
-      </button>
+      <div class="launcher-wrap">
+        <img class="dot" src="${ICON}" alt="">
+        <button class="launcher" type="button" title="Ask KindnessBot">KindnessBot</button>
+      </div>
       <div class="panel" part="panel">
         <div class="head">
           <img class="dot" src="${ICON}" alt="">KindnessBot
@@ -160,7 +164,7 @@ export default function KindnessBotWidget() {
       </div>`;
 
     const panel = root.querySelector('.panel');
-    const launcher = root.querySelector('.launcher');
+    const launcherWrap = root.querySelector('.launcher-wrap');
     const log = root.querySelector('.log');
     const form = root.querySelector('.foot');
     const input = root.querySelector('.foot input');
@@ -299,7 +303,7 @@ export default function KindnessBotWidget() {
       const open = !panel.classList.contains('open');
       panel.classList.toggle('open', open);
       // The launcher sits where the panel does, so it steps aside while open.
-      launcher.classList.toggle('hidden', open);
+      launcherWrap.classList.toggle('hidden', open);
       if (open) {
         if (!log.childElementCount) greet();
         input.focus();
@@ -307,7 +311,7 @@ export default function KindnessBotWidget() {
     }
 
     root.querySelector('.close').onclick = toggle;
-    launcher.onclick = toggle;
+    launcherWrap.onclick = toggle;
 
     clearBtn.onclick = () => {
       conversationId = null;
