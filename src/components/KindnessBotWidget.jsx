@@ -52,89 +52,28 @@ export default function KindnessBotWidget() {
           box-shadow: 0 12px 32px rgba(60,64,67,.28);
         }
         .panel.open { display: flex; }
-        .launcher-wrap {
-          position: fixed; right: 46px; bottom: 42px; z-index: 1;
-          display: flex; flex-direction: column; align-items: center;
-        }
-        .launcher-wrap.hidden { display: none; }
-        .puppy-stage {
-          position: relative; width: 170px; height: 64px; margin-bottom: 4px;
-          pointer-events: none;
-        }
-        .puppy {
-          position: absolute; left: 50%; top: 50%; margin-left: -30px; margin-top: -30px;
-          width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
-          display: block; transform-origin: center;
-          animation: kbot-walk 4.2s ease-in-out infinite;
-        }
-        @keyframes kbot-walk {
-          0%   { transform: translate(-56px, 0); }
-          8%   { transform: translate(-56px, -5px); }
-          16%  { transform: translate(-56px, 0); }
-          46%  { transform: translate(56px, 0); }
-          58%  { transform: translate(56px, -5px); }
-          66%  { transform: translate(56px, 0); }
-          100% { transform: translate(-56px, 0); }
-        }
-        .puppy-stage.thinking .puppy {
-          animation: kbot-think 1.5s ease-in-out infinite;
-        }
-        @keyframes kbot-think {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          25%  { transform: translate(0, -2px) rotate(-6deg); }
-          75%  { transform: translate(0, -2px) rotate(6deg); }
-        }
-        .thought {
-          position: absolute; left: 50%; top: -10px; margin-left: 10px;
-          font-size: 19px; opacity: 0;
-        }
-        .puppy-stage.thinking .thought {
-          animation: kbot-thought 1.5s ease-in-out infinite;
-        }
-        @keyframes kbot-thought {
-          0%, 100% { opacity: 0; transform: translateY(3px) scale(.7); }
-          50%      { opacity: 1; transform: translateY(-5px) scale(1); }
-        }
         .launcher {
-          margin-top: -14px; border: 1px solid #dadce0; border-radius: 999px;
-          padding: 14px 28px; background: #fff; color: #202124; cursor: pointer;
-          font: 600 19px/1 inherit; box-shadow: 0 2px 10px rgba(60,64,67,.24);
+          position: fixed; right: 46px; bottom: 42px; display: flex; align-items: center; gap: 7px;
+          padding: 7px 13px 7px 8px; border: 1px solid #dadce0; border-radius: 999px;
+          background: #fff; color: #202124; cursor: pointer; font: 500 13px/1 inherit;
+          box-shadow: 0 2px 10px rgba(60,64,67,.24);
         }
         .launcher:hover { box-shadow: 0 4px 14px rgba(60,64,67,.32); }
+        .launcher.hidden { display: none; }
         .head {
           display: flex; align-items: center; gap: 8px; padding: 10px 12px;
           border-bottom: 1px solid #ecedef; font: 500 14px/1 inherit; color: #202124;
         }
         .dot {
-          width: 34px; height: 34px; border-radius: 50%; flex: 0 0 34px;
+          width: 24px; height: 24px; border-radius: 50%; flex: 0 0 24px;
           object-fit: cover; display: block;
-          animation: kbot-bounce 1.8s linear infinite;
-        }
-        @keyframes kbot-bounce {
-          0%   { transform: translate(0, 0); }
-          12.5% { transform: translate(2px, -2px); }
-          25%  { transform: translate(3px, -4px); }
-          37.5% { transform: translate(2px, -6px); }
-          50%  { transform: translate(0, -7px); }
-          62.5% { transform: translate(-2px, -6px); }
-          75%  { transform: translate(-3px, -4px); }
-          87.5% { transform: translate(-2px, -2px); }
-          100% { transform: translate(0, 0); }
         }
         .intro { font-size: 12.5px; color: #5f6368; line-height: 1.5; }
         .disclaimer {
           padding: 0 12px 10px; text-align: center; font-size: 10.5px; color: #80868b;
         }
-        .head-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
-        .clear {
-          border: 1px solid #dadce0; background: #fff; cursor: pointer;
-          color: #1a73e8; font-size: 11.5px; font-weight: 600;
-          border-radius: 999px; padding: 5px 11px; line-height: 1.3;
-        }
-        .clear:hover { background: #f8f9fa; border-color: #d2e3fc; }
-        .clear.hidden { display: none; }
         .close {
-          border: 0; background: none; cursor: pointer;
+          margin-left: auto; border: 0; background: none; cursor: pointer;
           font-size: 20px; line-height: 1; color: #5f6368; padding: 2px 4px;
         }
         .log { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 9px; }
@@ -178,34 +117,25 @@ export default function KindnessBotWidget() {
         .typing span:nth-child(3) { animation-delay: .4s }
         @keyframes b { 0%,60%,100% { opacity:.3 } 30% { opacity:1 } }
       </style>
-      <div class="launcher-wrap">
-        <div class="puppy-stage"><img class="puppy" src="${ICON}" alt=""><span class="thought">💭</span></div>
-        <button class="launcher" type="button" title="Ask KindnessBot">KindnessBot</button>
-      </div>
+      <button class="launcher" type="button" title="Ask KindnessBot">
+        <img class="dot" src="${ICON}" alt="">KindnessBot
+      </button>
       <div class="panel" part="panel">
-        <div class="head">
-          <img class="dot" src="${ICON}" alt="">KindnessBot
-          <div class="head-actions">
-            <button class="clear hidden" type="button" title="Clear conversation">Clear</button>
-            <button class="close" title="Close">×</button>
-          </div>
-        </div>
+        <div class="head"><img class="dot" src="${ICON}" alt="">KindnessBot<button class="close" title="Close">×</button></div>
         <div class="log"></div>
         <form class="foot">
           <input type="text" placeholder="Ask about Kindness Matrix..." autocomplete="off" maxlength="4000">
           <button type="submit" title="Send">➤</button>
         </form>
-        <div class="disclaimer">KindnessBot is AI and can make mistakes</div>
+        <div class="disclaimer">This information is provided by the Kindness product.</div>
       </div>`;
 
     const panel = root.querySelector('.panel');
-    const launcherWrap = root.querySelector('.launcher-wrap');
-    const puppyStage = root.querySelector('.puppy-stage');
+    const launcher = root.querySelector('.launcher');
     const log = root.querySelector('.log');
     const form = root.querySelector('.foot');
     const input = root.querySelector('.foot input');
     const send = root.querySelector('.foot button');
-    const clearBtn = root.querySelector('.clear');
     let conversationId = null;
     let busy = false;
 
@@ -296,7 +226,6 @@ export default function KindnessBotWidget() {
       if (busy || !message.trim()) return;
       busy = true;
       send.disabled = true;
-      puppyStage.classList.add('thinking');
       bubble('me', message);
 
       const typing = bubble('bot', '');
@@ -314,7 +243,6 @@ export default function KindnessBotWidget() {
         if (!res.ok) throw new Error(data.detail || 'Request failed (' + res.status + ')');
         conversationId = data.conversation_id || conversationId;
         bubble('bot', data.answer || '');
-        clearBtn.classList.remove('hidden');
         if (typeof data.file_path === 'string' && data.file_path.trim()) {
           addNavButton(data.file_path.trim());
         }
@@ -324,7 +252,6 @@ export default function KindnessBotWidget() {
       } finally {
         busy = false;
         send.disabled = false;
-        puppyStage.classList.remove('thinking');
         log.scrollTop = log.scrollHeight;
         input.focus();
       }
@@ -341,7 +268,7 @@ export default function KindnessBotWidget() {
       const open = !panel.classList.contains('open');
       panel.classList.toggle('open', open);
       // The launcher sits where the panel does, so it steps aside while open.
-      launcherWrap.classList.toggle('hidden', open);
+      launcher.classList.toggle('hidden', open);
       if (open) {
         if (!log.childElementCount) greet();
         input.focus();
@@ -349,15 +276,7 @@ export default function KindnessBotWidget() {
     }
 
     root.querySelector('.close').onclick = toggle;
-    launcherWrap.onclick = toggle;
-
-    clearBtn.onclick = () => {
-      conversationId = null;
-      log.innerHTML = '';
-      clearBtn.classList.add('hidden');
-      greet();
-      input.focus();
-    };
+    launcher.onclick = toggle;
 
     function onDocClick(e) {
       if (e.target.closest('[data-kindnessbot-open]')) { e.preventDefault(); toggle(); }
