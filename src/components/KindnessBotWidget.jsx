@@ -7,7 +7,7 @@ import kindnessBotIcon from '../pages/assets/kbot.png';
 // this app's CSS (km-*, etc.), and is mounted once at the app root so it
 // floats above every route.
 const API_BASE = import.meta.env.VITE_API_URL || '';
-const API = `${API_BASE}/api/v1/kindnessbot`;
+const API = `${API_BASE}/api/kindnessbot`;
 const ICON = kindnessBotIcon;
 
 const SUGGESTIONS = [
@@ -72,8 +72,16 @@ export default function KindnessBotWidget() {
         .disclaimer {
           padding: 0 12px 10px; text-align: center; font-size: 10.5px; color: #80868b;
         }
+        .head-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+        .clear {
+          border: 1px solid #dadce0; background: #fff; cursor: pointer;
+          color: #1a73e8; font-size: 11.5px; font-weight: 600;
+          border-radius: 999px; padding: 5px 11px; line-height: 1.3;
+        }
+        .clear:hover { background: #f8f9fa; border-color: #d2e3fc; }
+        .clear.hidden { display: none; }
         .close {
-          margin-left: auto; border: 0; background: none; cursor: pointer;
+          border: 0; background: none; cursor: pointer;
           font-size: 20px; line-height: 1; color: #5f6368; padding: 2px 4px;
         }
         .log { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 9px; }
@@ -121,7 +129,13 @@ export default function KindnessBotWidget() {
         <img class="dot" src="${ICON}" alt="">KindnessBot
       </button>
       <div class="panel" part="panel">
-        <div class="head"><img class="dot" src="${ICON}" alt="">KindnessBot<button class="close" title="Close">×</button></div>
+        <div class="head">
+          <img class="dot" src="${ICON}" alt="">KindnessBot
+          <div class="head-actions">
+            <button class="clear hidden" type="button" title="Clear conversation">Clear</button>
+            <button class="close" title="Close">×</button>
+          </div>
+        </div>
         <div class="log"></div>
         <form class="foot">
           <input type="text" placeholder="Ask about Kindness Matrix..." autocomplete="off" maxlength="4000">
@@ -136,6 +150,7 @@ export default function KindnessBotWidget() {
     const form = root.querySelector('.foot');
     const input = root.querySelector('.foot input');
     const send = root.querySelector('.foot button');
+    const clearBtn = root.querySelector('.clear');
     let conversationId = null;
     let busy = false;
 
@@ -243,6 +258,7 @@ export default function KindnessBotWidget() {
         if (!res.ok) throw new Error(data.detail || 'Request failed (' + res.status + ')');
         conversationId = data.conversation_id || conversationId;
         bubble('bot', data.answer || '');
+        clearBtn.classList.remove('hidden');
         if (typeof data.file_path === 'string' && data.file_path.trim()) {
           addNavButton(data.file_path.trim());
         }
@@ -277,6 +293,14 @@ export default function KindnessBotWidget() {
 
     root.querySelector('.close').onclick = toggle;
     launcher.onclick = toggle;
+
+    clearBtn.onclick = () => {
+      conversationId = null;
+      log.innerHTML = '';
+      clearBtn.classList.add('hidden');
+      greet();
+      input.focus();
+    };
 
     function onDocClick(e) {
       if (e.target.closest('[data-kindnessbot-open]')) { e.preventDefault(); toggle(); }
