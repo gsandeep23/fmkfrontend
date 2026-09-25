@@ -5,7 +5,6 @@ import {
 } from '../services/endpoints';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
-import Sidebar from '../components/Sidebar.jsx';
 import {
   IconWhatsApp, IconFacebook, IconTelegram, IconTwitter, IconMail,
   IconVideo, IconVideoFilled, IconUsers, IconPhone,
@@ -447,7 +446,6 @@ function MessageRow({ msg, showToast, onSpeak, onGoHome, showBack }) {
 
 export default function KindnessMatrix() {
   const [view, setView] = useState('home');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [pendingImg, setPendingImg] = useState(null);
   const [typing, setTyping] = useState(false);
@@ -760,8 +758,7 @@ export default function KindnessMatrix() {
   }
 
   return (
-    <div className={`km-page ${sidebarOpen ? 'km-page-sidebar-open' : ''}`}>
-      <Sidebar open={sidebarOpen} onToggle={() => setSidebarOpen((o) => !o)} />
+    <div className="km-page">
 
       {cameraOpen && (
         <div className="km-cam-modal">
