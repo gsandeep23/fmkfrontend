@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import logot from '../pages/assets/logo.png';
+import logot from '../pages/assets/km-logo.png';
 
 function HamburgerIcon() {
   return (
