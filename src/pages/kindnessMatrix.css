@@ -186,6 +186,7 @@
   display: block;
   margin-bottom: 10px;
   user-select: none;
+  border-radius: 18px;
 }
 
 /* ---------- Home ---------- */
@@ -501,6 +502,7 @@
   height: 40px;
   width: auto;
   display: block;
+  border-radius: 8px;
 }
 .km-chat-header-right {
   display: flex;
