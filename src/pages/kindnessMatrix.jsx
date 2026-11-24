@@ -288,7 +288,7 @@ function IdeaRow({ idea, objName, idx = 0, showToast }) {
       if (actionLoading) return <em>Finding stores near {zip}...</em>;
       const qOffline = encodeURIComponent(actionQuery || `${objName || idea} store near ${zip}`);
       return (
-        <a className="km-share-link" style={{ background: '#34A853', fontSize: '12px', padding: '7px 14px' }}
+        <a className="km-share-link" style={{ background: '#378282', fontSize: '12px', padding: '7px 14px' }}
           href={`https://www.google.com/maps/search/?api=1&query=${qOffline}`} target="_blank" rel="noopener noreferrer">
           🗺️ Find stores near {zip} on Google Maps
         </a>
@@ -303,7 +303,7 @@ function IdeaRow({ idea, objName, idx = 0, showToast }) {
       const subject = encodeURIComponent('A Kindness Idea for You 💛');
       return (
         <>
-          <div className="km-msg-card" style={{ background: '#e3f2fd', borderLeft: '3px solid #1877F2' }}>{msg}</div>
+          <div className="km-msg-card" style={{ background: '#EAF6F6', borderLeft: '3px solid #4BB1B1' }}>{msg}</div>
           <div className="km-share-label">Share via:</div>
           <div className="km-share-link-row">
             <a className="km-share-link" href={`https://wa.me/?text=${enc}`} target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#25D366' }}><IconWhatsApp className="km-share-icon" /></span> WhatsApp</a>
@@ -322,7 +322,7 @@ function IdeaRow({ idea, objName, idx = 0, showToast }) {
       const enc2 = encodeURIComponent(kaText);
       return (
         <>
-          <div className="km-msg-card" style={{ background: '#e8f5e9', borderLeft: '3px solid #34A853' }}>{kaText}</div>
+          <div className="km-msg-card" style={{ background: '#E8F5F5', borderLeft: '3px solid #378282' }}>{kaText}</div>
           <div className="km-share-label">Schedule via:</div>
           <div className="km-share-link-row">
             <a className="km-share-link" href="https://meet.google.com/new" target="_blank" rel="noopener noreferrer"><span className="km-share-icon-badge" style={{ background: '#34A853' }}><IconVideo className="km-share-icon" /></span> Google Meet</a>
@@ -374,10 +374,10 @@ function IdeaRow({ idea, objName, idx = 0, showToast }) {
                 value={zip} onChange={(e) => setZip(e.target.value)} />
             </div>
             <div className="km-ka-buttons">
-              <button className="km-ka-btn" onClick={() => handleKaClick('online')}><span className="km-share-icon-badge" style={{ background: '#4C6FE0' }}><IconCart className="km-share-icon" /></span> Buy Online</button>
-              <button className="km-ka-btn" onClick={() => handleKaClick('offline')}><span className="km-share-icon-badge" style={{ background: '#2E9E8F' }}><IconStore className="km-share-icon" /></span> Buy Offline</button>
-              <button className="km-ka-btn" onClick={() => handleKaClick('share')}><span className="km-share-icon-badge" style={{ background: '#6C63D6' }}><IconShare className="km-share-icon" /></span> Share</button>
-              <button className="km-ka-btn" onClick={() => handleKaClick('meetup')}><span className="km-share-icon-badge" style={{ background: '#3D7EA6' }}><IconCalendar className="km-share-icon" /></span> Schedule</button>
+              <button className="km-ka-btn" onClick={() => handleKaClick('online')}><span className="km-share-icon-badge" style={{ background: '#E8664C' }}><IconCart className="km-share-icon" /></span> Buy Online</button>
+              <button className="km-ka-btn" onClick={() => handleKaClick('offline')}><span className="km-share-icon-badge" style={{ background: '#378282' }}><IconStore className="km-share-icon" /></span> Buy Offline</button>
+              <button className="km-ka-btn" onClick={() => handleKaClick('share')}><span className="km-share-icon-badge" style={{ background: '#8E74C4' }}><IconShare className="km-share-icon" /></span> Share</button>
+              <button className="km-ka-btn" onClick={() => handleKaClick('meetup')}><span className="km-share-icon-badge" style={{ background: '#E0A82A' }}><IconCalendar className="km-share-icon" /></span> Schedule</button>
             </div>
             {kaType && <div className="km-ka-result">{renderKaResult()}</div>}
           </div>

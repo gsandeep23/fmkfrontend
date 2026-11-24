@@ -78,7 +78,7 @@ export default function KindnessBotWidget() {
           color: #1a73e8; font-size: 11.5px; font-weight: 600;
           border-radius: 999px; padding: 5px 11px; line-height: 1.3;
         }
-        .clear:hover { background: #f8f9fa; border-color: #d2e3fc; }
+        .clear:hover { background: #f8f9fa; border-color: #DDF1F1; }
         .clear.hidden { display: none; }
         .close {
           border: 0; background: none; cursor: pointer;
@@ -87,8 +87,8 @@ export default function KindnessBotWidget() {
         .log { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 9px; }
         .msg { max-width: 88%; padding: 8px 11px; border-radius: 13px; font-size: 13px; line-height: 1.5; word-wrap: break-word; }
         .bot { align-self: flex-start; background: #f1f3f4; color: #202124; border-bottom-left-radius: 4px; }
-        .me  { align-self: flex-end;   background: #1a73e8; color: #fff;    border-bottom-right-radius: 4px; white-space: pre-wrap; }
-        .err { align-self: flex-start; background: #fce8e6; color: #c5221f; white-space: pre-wrap; }
+        .me  { align-self: flex-end;   background: #3F9494; color: #fff;    border-bottom-right-radius: 4px; white-space: pre-wrap; }
+        .err { align-self: flex-start; background: #FEE8E4; color: #c5221f; white-space: pre-wrap; }
         .bot p { margin: 0 0 8px; }
         .bot ol, .bot ul { margin: 0 0 8px; padding-left: 20px; }
         .bot li { margin-bottom: 4px; }
@@ -99,22 +99,22 @@ export default function KindnessBotWidget() {
           border-radius: 16px; padding: 8px 12px; font-size: 12.5px; line-height: 1.4;
           text-align: left; width: 100%;
         }
-        .chip:hover { background: #f8f9fa; border-color: #d2e3fc; }
+        .chip:hover { background: #f8f9fa; border-color: #DDF1F1; }
         .nav-btn {
-          align-self: flex-start; border: 0; background: #1a73e8; color: #fff; cursor: pointer;
+          align-self: flex-start; border: 0; background: #3F9494; color: #fff; cursor: pointer;
           border-radius: 16px; padding: 8px 14px; font-size: 12.5px; font-weight: 500;
           line-height: 1.4;
         }
-        .nav-btn:hover { background: #1765cc; }
+        .nav-btn:hover { background: #388585; }
         .foot { display: flex; gap: 7px; padding: 10px 10px 6px; }
         .foot input {
           flex: 1; height: 36px; padding: 0 14px; font-size: 12.5px;
-          border: 2px solid #1a73e8; border-radius: 999px; outline: none; color: #202124;
+          border: 2px solid #3F9494; border-radius: 999px; outline: none; color: #202124;
         }
         .foot input::placeholder { color: #80868b; }
         .foot button {
           width: 36px; height: 36px; border: 0; border-radius: 50%; cursor: pointer;
-          background: #1a73e8; color: #fff; font-size: 14px; flex: 0 0 36px;
+          background: #3F9494; color: #fff; font-size: 14px; flex: 0 0 36px;
         }
         .foot button:disabled { background: #dadce0; cursor: default; }
         .typing span {
